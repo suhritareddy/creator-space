@@ -51,7 +51,7 @@ const featuresData = [
 
 export default function Home() {
   return (
-    <div className="h-screen overflow-y-scroll snap-y snap-mandatory scroll-smooth">
+    <div className="min-h-screen">
 
       {/* HERO */}
       <section className="snap-start relative min-h-screen flex items-center justify-center px-4 text-center overflow-hidden">
@@ -89,7 +89,7 @@ export default function Home() {
             <Button
               asChild
               size="lg"
-              className="px-8 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-sky-500 text-white hover:opacity-90 hover:scale-105 transition-transform transition-opacity duration-300 shadow-lg"
+              className="px-8 h-12 rounded-xl bg-gradient-to-r from-blue-500 to-sky-500 text-white hover:opacity-90 hover:scale-105  transition-opacity duration-300 shadow-lg"
             >
               <Link href="/dashboard">Get Started</Link>
             </Button>
@@ -103,7 +103,7 @@ export default function Home() {
               dark:bg-slate-200 dark:text-slate-900 
               dark:hover:bg-white dark:hover:text-slate-900
               hover:scale-105 active:scale-95 
-              hover:shadow-xl transition-transform transition-colors duration-300"
+              hover:shadow-xl  transition-colors duration-300"
             >
               <a href="#features">See Features</a>
             </Button>
@@ -143,10 +143,10 @@ export default function Home() {
             {featuresData.map((feature, index) => (
               <Card
                 key={index}
-                className="group relative overflow-hidden border border-slate-200/70 dark:border-slate-700/50 bg-white dark:bg-slate-800 hover:border-blue-400/50 dark:hover:border-blue-700/40 hover:shadow-lg hover:shadow-blue-500/10 transition-transform transition-shadow transition-colors duration-300 hover:-translate-y-1"
+                className="group relative overflow-hidden border border-slate-200/70 dark:border-slate-700/50 bg-white dark:bg-slate-800 hover:border-blue-400/50 dark:hover:border-blue-700/40 transition-transform transition-colors duration-300 hover:-translate-y-1"
               >
 
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-300 bg-gradient-to-br from-blue-50/50 to-transparent dark:from-blue-950/30 pointer-events-none" />
+               
 
                 <CardContent className="p-5 flex flex-col gap-3 relative">
 
