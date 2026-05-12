@@ -1,0 +1,61 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id          String      @id @default(uuid())
+  clerkUserId String      @unique
+  email       String      @unique
+  name        String?
+  imageUrl    String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+  workspaces  Workspace[]
+
+  @@map("users")
+}
+
+model Workspace {
+  id          String    @id @default(uuid())
+  name        String
+  description String?
+  userId      String
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  user        User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  scripts     Script[]
+
+  @@index([userId])
+  @@map("workspaces")
+}
+
+model Script {
+  id           String    @id @default(uuid())
+  topic        String
+  niche        String
+  platform     String
+  style        String
+  title        String?
+  hook         String?
+  script       String?
+  scenes       Json?
+  cta          String?
+  hashtags     Json?
+  thumbnailUrl String?
+  workspaceId  String
+  userId       String
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  workspace    Workspace @relation(fields: [workspaceId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+  @@index([workspaceId])
+  @@map("scripts")
+}
