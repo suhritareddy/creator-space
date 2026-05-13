@@ -127,7 +127,7 @@ const Header = () => {
 
               {/* ADD WORKSPACE */}
               <Link
-                href="/workspace"
+                href="/workspace/new"
                 className="
                   group flex items-center gap-1
                   px-3 h-10 rounded-xl
