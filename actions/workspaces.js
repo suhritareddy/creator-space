@@ -5,23 +5,22 @@ import { auth } from "@clerk/nextjs/server";
 import { revalidatePath } from "next/cache";
 
 export async function getUserWorkspaces() {
-  const { userId } = await auth();
-  if (!userId) throw new Error("Unauthorized");
+  try {
+    const { userId } = await auth();
+    if (!userId) return []; 
 
-  const user = await db.user.findUnique({
-    where: { clerkUserId: userId },
-  });
-  if (!user) throw new Error("User not found");
+    const user = await db.user.findUnique({ where: { clerkUserId: userId } });
+    if (!user) return [];
 
-  const workspaces = await db.workspace.findMany({
-    where: { userId: user.id },
-    orderBy: { createdAt: "desc" },
-    include: {
-      _count: { select: { scripts: true } },
-    },
-  });
-
-  return workspaces;
+    return await db.workspace.findMany({
+      where: { userId: user.id },
+      orderBy: { createdAt: "desc" },
+      include: { _count: { select: { scripts: true } } },
+    });
+  } catch (error) {
+    console.error("getUserWorkspaces error:", error);
+    return []; 
+  }
 }
 
 export async function createWorkspace(data) {
